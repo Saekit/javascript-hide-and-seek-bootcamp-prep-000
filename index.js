@@ -3,22 +3,29 @@ function getFirstSelector(selector) {
 }
 
 function nestedTarget() {
-  const nest = document
-    .getElementById('nested')
-    .quarySelector('div div div div.target')
-  return nest;
+  return document.querySelector('#nested .target');
 }
 
 
 function increaseRankBy(n) {
-  const list = document
-    .getElementById('app')
-    .quarySelector('ul.ranked-list')
+  const list = document.quarySelectorAll('.ranked-list')
   for (let i = 0; i < list.length; i++) {
-    list[i].innerHTML = parseInt(i + n);
+    let children = list[i].children;
+    for (let j = 0; j < children.length; j++) {
+      children[j].innerHTML = parseInt(children[j].innerHTML) + n;
+    }
   }
 }
+increaseRankBy(5)
+
 
 function deepestChild() {
+  let node = document.getElementById('grand-node')
+  let nextNode = node.children[0];
   
+  while (nextNode) {
+    node = nextNode;
+    nextNode = node.children[0];
+  }
+  return (node);
 }
